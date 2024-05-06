@@ -1,0 +1,59 @@
+<?php
+
+// Kelas dasar
+abstract class Shape {
+    abstract public function calculateArea();
+}
+
+// Kelas turunan pertama
+class Rectangle extends Shape {
+    private $width;
+    private $height;
+
+    public function __construct($width, $height) {
+        $this->width = $width;
+        $this->height = $height;
+    }
+
+    // Implementasi metode abstrak
+    public function calculateArea() {
+        return $this->width * $this->height;
+    }
+}
+
+// Kelas turunan kedua
+class Circle extends Shape {
+    private $radius;
+
+    public function __construct($radius) {
+        $this->radius = $radius;
+    }
+
+    // Implementasi metode abstrak
+    public function calculateArea() {
+        return pi() * $this->radius * $this->radius;
+    }
+}
+
+// Fungsi untuk menghitung luas
+function calculateTotalArea(array $shapes) {
+    $totalArea = 0;
+    foreach ($shapes as $shape) {
+        // Polimorfisme: Memanggil metode calculateArea() pada objek yang berbeda kelas
+        $totalArea += $shape->calculateArea();
+    }
+    return $totalArea;
+}
+
+// Objek dari kelas-kelas turunan
+$rectangle = new Rectangle(5, 10);
+$circle = new Circle(7);
+
+// Menyimpan objek dalam array
+$shapes = [$rectangle, $circle];
+
+// Memanggil fungsi untuk menghitung total luas
+$totalArea = calculateTotalArea($shapes);
+
+echo "Total luas: " . $totalArea . "\n";
+?>
